@@ -1,7 +1,18 @@
 import { Component } from "solid-js";
 import logo from '../logo.svg';
+import { useNavigate } from "@solidjs/router";
 
 const Home: Component = () => {
+  const navigate = useNavigate();
+
+  const createProject = () => {
+    navigate('/project');
+  }
+
+  const openProject = () => {
+    navigate('/project');
+  }
+
   return (
     <div class="grid h-screen place-items-center items-center">
       <div class="flex flex-col w-full lg:flex-row place-content-center">
@@ -11,7 +22,7 @@ const Home: Component = () => {
             <h2 class="card-title">Create Project!</h2>
             <p>Create new SonataJS project?</p>
             <div class="card-actions justify-end">
-              <button class="btn btn-primary">Create Project</button>
+              <button class="btn btn-primary" onClick={createProject}>Create Project</button>
             </div>
           </div>
         </div>
@@ -24,7 +35,7 @@ const Home: Component = () => {
             <h2 class="card-title">Open Project!</h2>
             <p>Open existing SonataJS project?</p>
             <div class="card-actions justify-end">
-              <button class="btn btn-primary">Open Project</button>
+              <button class="btn btn-primary" onClick={openProject}>Open Project</button>
             </div>
           </div>
         </div>
