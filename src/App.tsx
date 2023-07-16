@@ -1,9 +1,16 @@
-import type { Component } from 'solid-js';
+import { Component } from 'solid-js';
+import { Router, Routes, Route } from '@solidjs/router';
+
+import Home from './pages/Home';
 
 const App: Component = () => {
   return (
     <>
-      <span class="loading loading-infinity loading-lg text-primary"></span>
+      <Router>
+        <Routes>
+          <Route path="/" component={Home} />
+        </Routes>
+      </Router>
     </>
   );
 };
