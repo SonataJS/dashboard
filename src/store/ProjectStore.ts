@@ -35,7 +35,7 @@ export type ProjectEntity = {
 
 export type Project = {
   backend: string,
-  frontned: string,
+  frontend: string,
   ui: string,
   data: ProjectEntity[],
 }
@@ -43,7 +43,7 @@ export type Project = {
 export const createNewProject = (): Project => {
   return {
     backend: 'supabase',
-    frontned: 'solidjs',
+    frontend: 'solidjs',
     ui: 'daisyui',
     data: [],
   }

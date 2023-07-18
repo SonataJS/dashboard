@@ -42,7 +42,7 @@ const Home: Component = () => {
   }
 
   return (
-    <div class="grid h-screen place-items-center items-center">
+    <div class="grid h-screen place-items-center items-center bg-base-200">
       <input type="file" hidden ref={fileInputRef} accept="application/json" onChange={openProject} />
 
       <div class="flex flex-col w-full lg:flex-row place-content-center">
