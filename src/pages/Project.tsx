@@ -7,6 +7,10 @@ import { Project, project, setProject } from "../store/ProjectStore";
 const ProjectPage: Component = () => {
   const backendItems: SelectItem[] = [
     {
+      id: '',
+      title: 'None',
+    },
+    {
       id: 'supabase',
       title: 'Supabase',
     },
@@ -14,17 +18,14 @@ const ProjectPage: Component = () => {
 
   const frontendItems: SelectItem[] = [
     {
-      id: 'solidjs',
-      title: 'SolidJS',
+      id: '',
+      title: 'None',
+    },
+    {
+      id: 'solidjs_daisyui',
+      title: 'SolidJS + daisyUI',
     },
   ];
-
-  const uiItems: SelectItem[] = [
-    {
-      id: 'daisyui',
-      title: 'daisyUI',
-    },
-  ]
 
   const onProjectChange = (key: keyof Project, value: string) => {
     setProject(key, value);
@@ -45,11 +46,6 @@ const ProjectPage: Component = () => {
             items={frontendItems}
             value={project.frontend}
             onChange={(val) => onProjectChange('frontend', val)} />
-          <Select
-            label="UI:"
-            items={uiItems}
-            value={project.ui}
-            onChange={(val) => onProjectChange('ui', val)} />
         </form>
       </Card>
       <Card title="Entries">

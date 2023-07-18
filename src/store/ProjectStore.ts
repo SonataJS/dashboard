@@ -36,15 +36,13 @@ export type ProjectEntity = {
 export type Project = {
   backend: string,
   frontend: string,
-  ui: string,
   data: ProjectEntity[],
 }
 
 export const createNewProject = (): Project => {
   return {
     backend: 'supabase',
-    frontend: 'solidjs',
-    ui: 'daisyui',
+    frontend: 'solidjs_daisyui',
     data: [],
   }
 }
