@@ -1,27 +1,27 @@
-import { Component, For } from "solid-js";
+import { Accessor, Component, For } from "solid-js";
 import { ProjectEntity } from "../store/ProjectStore";
 
 type Props = {
   data: ProjectEntity[],
-  onEdit?: (id: string) => void,
-  onDelete?: (id: string) => void,
+  onEdit?: (id: number) => void,
+  onDelete?: (id: number) => void,
 }
 
 const EntitiesTale: Component<Props> = (props) => {
-  const onEdit = (id: string) => {
+  const onEdit = (idx: number) => {
     if (!props.onEdit) {
       return;
     }
 
-    props.onEdit(id);
+    props.onEdit(idx);
   }
 
-  const onDelete = (id: string) => {
+  const onDelete = (idx: number) => {
     if (!props.onEdit) {
       return;
     }
 
-    props.onEdit(id);
+    props.onEdit(idx);
   }
 
   return (
@@ -36,16 +36,16 @@ const EntitiesTale: Component<Props> = (props) => {
         </thead>
         <tbody>
           <For each={props.data}>
-            {(item: ProjectEntity) => {
+            {(item: ProjectEntity, idx: Accessor<number>) => {
               return (
                 <tr class="hover">
                   <td>{item.id}</td>
                   <td>{item.title}</td>
                   <td>
-                    <button class="btn btn-outline btn-accent" onClick={() => onEdit(item.id)}>Edit</button>
+                    <button class="btn btn-outline btn-accent" onClick={() => onEdit(idx())}>Edit</button>
                     &nbsp;
                     &nbsp;
-                    <button class="btn btn-outline btn-error" onClick={() => onDelete(item.id)}>Delete</button>
+                    <button class="btn btn-outline btn-error" onClick={() => onDelete(idx())}>Delete</button>
                   </td>
                 </tr>
               );

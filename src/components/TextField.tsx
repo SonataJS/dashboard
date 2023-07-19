@@ -25,6 +25,7 @@ const TextField: Component<Props> = (props) => {
         type="text"
         class="input input-bordered w-full"
         placeholder={props.placeholder}
+        value={props.value}
         onInput={onChange} />
     </div>
   );

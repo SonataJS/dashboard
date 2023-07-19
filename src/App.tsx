@@ -12,7 +12,7 @@ const App: Component = () => {
         <Routes>
           <Route path="/" component={Home} />
           <Route path="/project" component={Project} />
-          <Route path="/project/entity/:id?" component={Entity} />
+          <Route path="/project/entity/:idx" component={Entity} />
         </Routes>
       </Router>
     </>

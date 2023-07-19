@@ -2,7 +2,7 @@ import { Component } from "solid-js";
 import Header from "../components/Header";
 import Card from "../components/Card";
 import Select, { SelectItem } from "../components/Select";
-import { Project, project, setProject } from "../store/ProjectStore";
+import { Project, createProjectData, createProjectEntity, project, setProject } from "../store/ProjectStore";
 import EntitiesTale from "../components/EntitiesTable";
 import { useNavigate } from "@solidjs/router";
 
@@ -36,14 +36,16 @@ const ProjectPage: Component = () => {
   }
 
   const onNew = () => {
-    navigate('/project/entity');
+    const idx = project.data.length;
+    setProject('data', [...project.data, createProjectEntity()])
+    navigate(`/project/entity/${idx}`);
   }
 
-  const onEdit = (id: string) => {
-    navigate(`/project/entity/${id}`);
+  const onEdit = (idx: number) => {
+    navigate(`/project/entity/${idx}`);
   }
 
-  const onDelete = (id: string) => {
+  const onDelete = (idx: number) => {
   }
 
   return (
