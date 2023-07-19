@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Card from "../components/Card";
 import Select, { SelectItem } from "../components/Select";
 import { Project, project, setProject } from "../store/ProjectStore";
+import EntitiesTale from "../components/EntitiesTable";
 
 const ProjectPage: Component = () => {
   const backendItems: SelectItem[] = [
@@ -31,24 +32,36 @@ const ProjectPage: Component = () => {
     setProject(key, value);
   }
 
+  const onNew = () => {
+  }
+
+  const onEdit = (id: string) => {
+  }
+
+  const onDelete = (id: string) => {
+  }
+
   return (
     <div class="h-screen w-full bg-base-200">
       <Header />
       <Card title="Project">
-        <form>
-          <Select
-            label="Backend:"
-            items={backendItems}
-            value={project.backend}
-            onChange={(val) => onProjectChange('backend', val)} />
-          <Select
-            label="Frontend:"
-            items={frontendItems}
-            value={project.frontend}
-            onChange={(val) => onProjectChange('frontend', val)} />
-        </form>
+        <Select
+          label="Backend:"
+          items={backendItems}
+          value={project.backend}
+          onChange={(val) => onProjectChange('backend', val)} />
+        <Select
+          label="Frontend:"
+          items={frontendItems}
+          value={project.frontend}
+          onChange={(val) => onProjectChange('frontend', val)} />
       </Card>
-      <Card title="Entries">
+      <Card title="Entities">
+        <button class="btn btn-accent" onClick={onNew}>New Entity</button>
+        <EntitiesTale
+          data={project.data}
+          onEdit={onEdit}
+          onDelete={onDelete} />
       </Card>
     </div>
   );
