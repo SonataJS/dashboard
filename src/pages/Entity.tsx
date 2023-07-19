@@ -6,6 +6,7 @@ import TextField from "../components/TextField";
 import Checkbox from "../components/Checkbox";
 import Select from "../components/Select";
 import { ProjectEntity, project, setProject } from "../store/ProjectStore";
+import FieldsTable from "../components/FieldsTable";
 
 const Entity: Component = () => {
   const params = useParams();
@@ -18,6 +19,15 @@ const Entity: Component = () => {
   const onFieldChange = (key: keyof ProjectEntity, value: string | boolean) => {
     const idx = +params.idx;
     setProject('data', idx, key, value);
+  }
+
+  const onNew = () => {
+  }
+
+  const onEdit = (idx: number) => {
+  }
+
+  const onDelete = (idx: number) => {
   }
 
   return (
@@ -65,6 +75,11 @@ const Entity: Component = () => {
           </Show>
         </Card>
         <Card title="Fields">
+          <button class="btn btn-accent" onClick={onNew}>New Field</button>
+          <FieldsTable
+            data={entity().fields}
+            onEdit={onEdit}
+            onDelete={onDelete} />
         </Card>
       </div>
     </>

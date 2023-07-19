@@ -1,13 +1,13 @@
 import { Accessor, Component, For } from "solid-js";
-import { ProjectEntity } from "../store/ProjectStore";
+import { ProjectField } from "../store/ProjectStore";
 
 type Props = {
-  data: ProjectEntity[],
+  data: ProjectField[],
   onEdit?: (idx: number) => void,
   onDelete?: (idx: number) => void,
 }
 
-const EntitiesTable: Component<Props> = (props) => {
+const FieldsTable: Component<Props> = (props) => {
   const onEdit = (idx: number) => {
     if (!props.onEdit) {
       return;
@@ -30,16 +30,18 @@ const EntitiesTable: Component<Props> = (props) => {
         <thead>
           <tr>
             <th>Id</th>
+            <th>Type</th>
             <th>Title</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <For each={props.data}>
-            {(item: ProjectEntity, idx: Accessor<number>) => {
+            {(item: ProjectField, idx: Accessor<number>) => {
               return (
                 <tr class="hover">
                   <td>{item.id}</td>
+                  <td>{item.type}</td>
                   <td>{item.title}</td>
                   <td>
                     <button class="btn btn-outline btn-accent" onClick={() => onEdit(idx())}>Edit</button>
@@ -57,4 +59,4 @@ const EntitiesTable: Component<Props> = (props) => {
   );
 }
 
-export default EntitiesTable;
+export default FieldsTable;
