@@ -15,10 +15,6 @@ const Entity: Component = () => {
     return project.data[idx];
   }
 
-  setTimeout(() => {
-    setProject('data', 1, 'id', 'test');
-  }, 3000);
-
   const onFieldChange = (key: keyof ProjectEntity, value: string | boolean) => {
     const idx = +params.idx;
     setProject('data', idx, key, value);
