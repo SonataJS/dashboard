@@ -1,4 +1,4 @@
-import { Component, JSXElement, ParentProps } from "solid-js";
+import { Component, JSXElement } from "solid-js";
 
 type Props = {
   title: string,

@@ -4,8 +4,11 @@ import Card from "../components/Card";
 import Select, { SelectItem } from "../components/Select";
 import { Project, project, setProject } from "../store/ProjectStore";
 import EntitiesTale from "../components/EntitiesTable";
+import { useNavigate } from "@solidjs/router";
 
 const ProjectPage: Component = () => {
+  const navigate = useNavigate();
+
   const backendItems: SelectItem[] = [
     {
       id: '',
@@ -33,9 +36,11 @@ const ProjectPage: Component = () => {
   }
 
   const onNew = () => {
+    navigate('/project/entity');
   }
 
   const onEdit = (id: string) => {
+    navigate(`/project/entity/${id}`);
   }
 
   const onDelete = (id: string) => {
