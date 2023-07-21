@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Card from "../components/Card";
 import Select, { SelectItem } from "../components/Select";
 import { Project, createProjectData, createProjectEntity, project, setProject } from "../store/ProjectStore";
-import EntitiesTale from "../components/EntitiesTable";
+import EntitiesTable from "../components/EntitiesTable";
 import { useNavigate } from "@solidjs/router";
 
 const ProjectPage: Component = () => {
@@ -65,7 +65,7 @@ const ProjectPage: Component = () => {
       </Card>
       <Card title="Entities">
         <button class="btn btn-accent" onClick={onNew}>New Entity</button>
-        <EntitiesTale
+        <EntitiesTable
           data={project.data}
           onEdit={onEdit}
           onDelete={onDelete} />
