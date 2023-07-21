@@ -17,11 +17,11 @@ const EntitiesTable: Component<Props> = (props) => {
   }
 
   const onDelete = (idx: number) => {
-    if (!props.onEdit) {
+    if (!props.onDelete) {
       return;
     }
 
-    props.onEdit(idx);
+    props.onDelete(idx);
   }
 
   return (

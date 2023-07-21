@@ -1,13 +1,17 @@
-import { Component } from "solid-js";
+import { Component, createSignal } from "solid-js";
 import Header from "../components/Header";
 import Card from "../components/Card";
 import Select, { SelectItem } from "../components/Select";
-import { Project, createProjectData, createProjectEntity, project, setProject } from "../store/ProjectStore";
+import { Project, createProjectEntity, project, setProject } from "../store/ProjectStore";
 import EntitiesTable from "../components/EntitiesTable";
 import { useNavigate } from "@solidjs/router";
 
 const ProjectPage: Component = () => {
   const navigate = useNavigate();
+
+  const [deleteIdx, setDeleteIdx] = createSignal<number>(-1);
+
+  let deleteModal: HTMLDialogElement | undefined;
 
   const backendItems: SelectItem[] = [
     {
@@ -46,6 +50,16 @@ const ProjectPage: Component = () => {
   }
 
   const onDelete = (idx: number) => {
+    if (!deleteModal) {
+      return;
+    }
+
+    setDeleteIdx(idx);
+    deleteModal.show();
+  }
+
+  const deleteEntity = () => {
+    setProject('data', project.data.filter((_, idx) => idx !== deleteIdx()));
   }
 
   return (
@@ -70,6 +84,17 @@ const ProjectPage: Component = () => {
           onEdit={onEdit}
           onDelete={onDelete} />
       </Card>
+
+      <dialog ref={deleteModal} class="modal">
+        <form method="dialog" class="modal-box">
+          <h3 class="font-bold text-lg">Delete!</h3>
+          <p class="py-4">Are you sure you want to delete entity?</p>
+          <div class="modal-action">
+            <button class="btn btn-outline btn-error" onClick={deleteEntity}>Yes</button>
+            <button class="btn btn-outline btn-success">No</button>
+          </div>
+        </form>
+      </dialog>
     </div>
   );
 }
