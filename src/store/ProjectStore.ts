@@ -52,6 +52,12 @@ export const createProjectEntity = (): ProjectEntity => {
     id: '',
     title: '',
     row_level_security: false,
+    security: {
+      select: 'none',
+      insert: 'none',
+      update: 'none',
+      delete: 'none',
+    },
     fields: [],
   }
 }
@@ -67,6 +73,10 @@ export const createProjectField = (): ProjectField => {
     relation: '',
     read_only: false,
     hidden: false,
+    cascade: {
+      update: true,
+      delete: true,
+    }
   }
 }
 

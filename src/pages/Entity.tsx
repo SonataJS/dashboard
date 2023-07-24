@@ -4,8 +4,8 @@ import Card from "../components/Card";
 import { useNavigate, useParams } from "@solidjs/router";
 import TextField from "../components/TextField";
 import Checkbox from "../components/Checkbox";
-import Select from "../components/Select";
-import { ProjectEntity, createProjectField, project, setProject } from "../store/ProjectStore";
+import Select, { SelectItem } from "../components/Select";
+import { ProjectEntity, ProjectSecurity, createProjectField, project, setProject } from "../store/ProjectStore";
 import FieldsTable from "../components/FieldsTable";
 
 const Entity: Component = () => {
@@ -22,9 +22,33 @@ const Entity: Component = () => {
     return project.data[idx];
   }
 
+  const security = (): SelectItem[] => {
+    return [
+      {
+        id: 'none',
+        title: 'None',
+      },
+      {
+        id: '!authenticated',
+        title: 'Authenticated',
+      },
+      ...project.data[+params.idx].fields.map(f => {
+        return {
+          id: `auth.users-id;public.${project.data[+params.idx].id}-${f.id}`,
+          title: `${project.data[+params.idx].id}.${f.id}`,
+        };
+      }),
+    ];
+  }
+
   const onFieldChange = (key: keyof ProjectEntity, value: string | boolean) => {
     const idx = +params.idx;
     setProject('data', idx, key, value);
+  }
+
+  const onSecurityChange = (key: keyof ProjectSecurity, value: string) => {
+    const idx = +params.idx;
+    setProject('data', idx, 'security', key, value);
   }
 
   const onNew = () => {
@@ -79,20 +103,24 @@ const Entity: Component = () => {
               <div class="card-body">
                 <Select
                   label="Select"
-                  items={[]}
-                  value="" />
+                  items={security()}
+                  value={entity().security ? entity().security?.select as string : 'none'}
+                  onChange={(val: string) => onSecurityChange('select', val)} />
                 <Select
                   label="Insert"
-                  items={[]}
-                  value="" />
+                  items={security()}
+                  value={entity().security ? entity().security?.insert as string : 'none'}
+                  onChange={(val: string) => onSecurityChange('insert', val)} />
                 <Select
                   label="Update"
-                  items={[]}
-                  value="" />
+                  items={security()}
+                  value={entity().security ? entity().security?.update as string : 'none'}
+                  onChange={(val: string) => onSecurityChange('update', val)} />
                 <Select
                   label="Delete"
-                  items={[]}
-                  value="" />
+                  items={security()}
+                  value={entity().security ? entity().security?.delete as string : 'none'}
+                  onChange={(val: string) => onSecurityChange('delete', val)} />
               </div>
             </div>
           </Show>
