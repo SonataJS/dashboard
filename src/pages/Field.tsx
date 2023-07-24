@@ -5,7 +5,26 @@ import TextField from "../components/TextField";
 import { ProjectField, project, setProject } from "../store/ProjectStore";
 import { useParams } from "@solidjs/router";
 import Checkbox from "../components/Checkbox";
-import Select from "../components/Select";
+import Select, { SelectItem } from "../components/Select";
+
+const types: SelectItem[] = [
+  {
+    id: 'text',
+    title: 'Text',
+  },
+  {
+    id: 'uuid',
+    title: 'UUID',
+  },
+  {
+    id: 'numeric',
+    title: 'Numeric'
+  },
+  {
+    id: 'boolean',
+    title: 'Boolean',
+  },
+];
 
 const Field: Component = () => {
   const params = useParams();
@@ -38,8 +57,9 @@ const Field: Component = () => {
           onChange={(val: string) => onFieldChange('title', val)} />
         <Select
           label="Type"
-          items={[]}
-          value="" />
+          items={types}
+          value={field().type}
+          onChange={(val: string) => onFieldChange('type', val)} />
         <Checkbox
           toggle
           label="Primary Key"
