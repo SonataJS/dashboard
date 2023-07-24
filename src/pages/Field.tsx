@@ -35,6 +35,27 @@ const Field: Component = () => {
     return project.data[idx].fields[fIdx];
   }
 
+  const relations = (): SelectItem[] => {
+    return [
+      {
+        id: 'none',
+        title: 'None',
+      },
+      {
+        id: 'auth.users-id',
+        title: 'users.id',
+      },
+      ...project.data
+        .filter((pr, idx) => pr.fields.length && idx !== +params.idx)
+        .map(pr => {
+          return {
+            id: `public.${pr.id}-${pr.fields[0].id}`,
+            title: `${pr.id}.${pr.fields[0].id}`,
+          };
+        }),
+    ];
+  }
+
   const onFieldChange = (field: keyof ProjectField, value: string | boolean) => {
     const idx = +params.idx;
     const fIdx = +params.fidx;
@@ -77,8 +98,9 @@ const Field: Component = () => {
           onChange={(val: string) => onFieldChange('default_value', val)} />
         <Select
           label="Relation"
-          items={[]}
-          value="" />
+          items={relations()}
+          value={field().relation ? field().relation as string : 'none'}
+          onChange={(val: string) => onFieldChange('relation', val)} />
         <Checkbox
           toggle
           label="Read Only"
