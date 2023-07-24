@@ -56,6 +56,20 @@ export const createProjectEntity = (): ProjectEntity => {
   }
 }
 
+export const createProjectField = (): ProjectField => {
+  return {
+    id: '',
+    type: 'text',
+    primary_key: false,
+    not_null: false,
+    default_value: '',
+    title: '',
+    relation: '',
+    read_only: false,
+    hidden: false,
+  }
+}
+
 export const parseProject = (data: string): Project => {
   const json = JSON.parse(data);
   const project = json as Project;

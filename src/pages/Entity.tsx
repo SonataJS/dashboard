@@ -1,15 +1,21 @@
-import { Component, Show, createEffect } from "solid-js";
+import { Component, Show, createEffect, createSignal } from "solid-js";
 import Header from "../components/Header";
 import Card from "../components/Card";
-import { useParams } from "@solidjs/router";
+import { useNavigate, useParams } from "@solidjs/router";
 import TextField from "../components/TextField";
 import Checkbox from "../components/Checkbox";
 import Select from "../components/Select";
-import { ProjectEntity, project, setProject } from "../store/ProjectStore";
+import { ProjectEntity, createProjectField, project, setProject } from "../store/ProjectStore";
 import FieldsTable from "../components/FieldsTable";
 
 const Entity: Component = () => {
+  const navigate = useNavigate();
+
   const params = useParams();
+
+  const [deleteIdx, setDeleteIdx] = createSignal<number>(-1);
+
+  let deleteModal: HTMLDialogElement | undefined;
 
   const entity = (): ProjectEntity => {
     const idx = +params.idx;
@@ -22,12 +28,29 @@ const Entity: Component = () => {
   }
 
   const onNew = () => {
+    const idx = +params.idx;
+    const fIdx = project.data[idx].fields.length;
+    setProject('data', idx, 'fields', [...project.data[idx].fields, createProjectField()]);
+    navigate(`/project/entity/${idx}/field/${fIdx}`);
   }
 
-  const onEdit = (idx: number) => {
+  const onEdit = (fIdx: number) => {
+    const idx = +params.idx;
+    navigate(`/project/entity/${idx}/field/${fIdx}`);
   }
 
-  const onDelete = (idx: number) => {
+  const onDelete = (fIdx: number) => {
+    if (!deleteModal) {
+      return;
+    }
+
+    setDeleteIdx(fIdx);
+    deleteModal.show();
+  }
+
+  const deleteField = () => {
+    const idx = +params.idx;
+    setProject('data', idx, 'fields', project.data[idx].fields.filter((_, idx) => idx !== deleteIdx()));
   }
 
   return (
@@ -81,6 +104,17 @@ const Entity: Component = () => {
             onEdit={onEdit}
             onDelete={onDelete} />
         </Card>
+
+        <dialog ref={deleteModal} class="modal">
+          <form method="dialog" class="modal-box">
+            <h3 class="font-bold text-lg">Delete!</h3>
+            <p class="py-4">Are you sure you want to delete entity?</p>
+            <div class="modal-action">
+              <button class="btn btn-outline btn-error" onClick={deleteField}>Yes</button>
+              <button class="btn btn-outline btn-success">No</button>
+            </div>
+          </form>
+        </dialog>
       </div>
     </>
   );
